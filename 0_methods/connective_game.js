@@ -19,6 +19,25 @@ function random(a,b) {
   }
 }
 
+// Remove Option Redundancy 
+function options() {
+  var ages = document.getElementById("age");
+  var max  = 90;
+  for (i = 18; i < max; i++) {
+    var option = new Option(String(i), i);
+    ages.options.add(option);
+  }
+}
+
+// Create Radio Buttons 
+function createRadioButtons() {
+  var choice = random(3);
+  var radios = document.getElementsByName(String(choice))
+  for (i = 0; i < radios.length; i++) {
+    radios[i].style.visibility = 'visible'
+  }
+}
+
 // Add a random selection function to all arrays (e.g., <code>[4,8,7].random()</code> could return 4, 8, or 7). This is useful for condition randomization.
 Array.prototype.random = function() {
   return this[random(this.length)];
@@ -202,7 +221,7 @@ var experiment = {
 // NEXT FUNCTION: The work horse of the sequence - what to do on every trial.
     next: function() {
       // Allow experiment to start if it's a turk worker OR if it's a test run
-      if (window.self == window.top | turk.workerId.length > 0) {
+      if (window.self == window.top) { //| turk.workerId.length > 0) {
           $("#testMessage").html('');   // clear the test message
           $("#prog").attr("style","width:" +
               String(100 * (1 - sample.length/totalTrials)) + "%")
